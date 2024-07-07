@@ -1,0 +1,10 @@
+[colors]
+
+background = #282c34
+background-alt = #806e6e6e
+foreground = #bdbdbd
+primary = #f7ba48
+black = #c6c6cc
+alert = #f70202
+disabled = #60606e
+blue= #f7ba48

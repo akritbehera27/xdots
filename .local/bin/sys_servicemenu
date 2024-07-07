@@ -1,0 +1,47 @@
+#!/bin/sh
+
+##                                                                              ##
+##### This Program is not supposed to run as a command it is for key-shortcut ####
+##                                                                              ##
+
+bspc node -t floating
+echo -e "\e[1;31m==== AUTHENTICATION REQUIRED ====\e[0m"
+echo "Enter root password to start the service"
+read -sp "Password: " pass
+
+#checking the root password
+clear
+echo $pass | sudo -S ls
+if [ $? -eq 0 ];then
+clear
+
+drvf=/drive1
+
+mnt_f() {
+mount | grep /dev/sda4
+if [ $? -eq 0 ]; then
+  notify-send "Drive Already Mounted"
+else
+echo $pass | sudo -S mount /dev/sda4 $drvf
+notify-send "/dev/sda4 mounted"
+fi
+clear
+}
+
+nsd_f() {
+mnt_f
+echo $pass | sudo -S systemctl start libvirtd
+echo $pass | sudo -S virsh net-start default
+notify-send "Started Default Network"
+}
+
+chosen=$(printf "󱛟   Mount /dev/sda4\n󰛳   Net-start Default & Qemu" | rofi -dmenu -i -theme-str '@import "power.rasi"' )
+case "$chosen" in
+  "󱛟   Mount /dev/sda4") mnt_f;;
+  "󰛳   Net-start Default & Qemu") nsd_f;;
+	*) exit 1 ;;
+esac
+
+else
+   notify-send "Authentication failed"
+fi

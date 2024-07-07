@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Send a notification when the laptop is plugged in/unplugged
+# Add the following to /etc/udev/rules.d/60-power.rules (replace USERNAME with your user)
+
+# ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/akrit/.Xauthority" RUN+="/usr/bin/su akrit -c '/home/akrit/.local/bin/battery-charging discharging'"
+# ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/akrit/.Xauthority" RUN+="/usr/bin/su akrit -c '/home/akrit/.local/bin/battery-charging charging'"
+
+export XAUTHORITY=/home/akrit/.Xauthority
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+BATTERY_STATE=$1
+
+IFS=$'\n'   
+for line in $(acpi); do
+    if grep -q "information unavailable" <<< "$line"; then
+      $ThisIsUseless
+    else
+      battery_info=$line
+    fi
+done
+
+BATTERY_LEVEL=$(echo "$battery_info" | awk '{print $4}' | tr -d ',' | tr -d '%')
+
+
+#BATTERY_LEVEL=$(acpi -b | grep "Battery 1" | grep -P -o '[0-9]+(?=%)')
+case "$BATTERY_STATE" in
+	"charging") BATTERY_CHARGING="Charging : " ;;
+	"discharging") BATTERY_CHARGING="Disharging : " ;;
+esac
+
+# Send notification
+notify-send "${BATTERY_CHARGING}" "${BATTERY_LEVEL}% of battery charged." -r 9991

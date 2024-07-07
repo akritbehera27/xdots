@@ -1,0 +1,16 @@
+import = ["/home/akrit/.config/alacritty/themes/one_dark.toml"]
+
+[font]
+size = 13.5
+
+[font.bold]
+family = "FiraCode Nerd Font Mono"
+style = "SemiBold"
+
+[font.italic]
+family = "FiraCode Nerd Font Mono"
+style = "italic"
+
+[font.normal]
+family = "FiraCode Nerd Font Mono"
+style = "Regular"

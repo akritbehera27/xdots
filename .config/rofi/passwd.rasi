@@ -1,0 +1,46 @@
+/* theme.rasi */
+configuration {
+    font: "JetBrainsMono Nerd Font 14";
+}
+
+* {
+    background: #2e3440ff;
+    text-color: #d8dee9ff;
+    background-color: #3b4252ff;
+    selected-background: #81a1c1ff;
+    selected-foreground: #eceff4ff;
+    alternate-normal-background: #434c5eff;
+    alternate-normal-foreground: #d8dee9ff;
+    normal-foreground: #d8dee9ff;
+    urgent-background: #bf616aff;
+    urgent-foreground: #eceff4ff;
+    active-background: #a3be8cff;
+    active-foreground: #2e3440ff;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+window {
+    width: 30%;  /* Adjust the width to make the box smaller */
+    height: 40%; /* Adjust the height to make the box smaller */
+}
+
+mainbox {
+    children: [ "prompt", "textbox", "listview" ];
+    spacing: 10px;
+}
+
+textbox {
+    horizontal-align: 0.5;  /* Center the text/input box horizontally */
+    vertical-align: 0.5;    /* Center the text/input box vertically */
+}
+
+entry {
+    text: "•";
+    placeholder: "Enter password";  /* Placeholder text */
+}
+
+inputbar {
+    content: "";
+    mask-char: '#';  /* Use '#' as the mask character */
+}

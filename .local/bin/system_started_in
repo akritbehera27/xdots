@@ -1,0 +1,11 @@
+#!/bin/sh
+sleep 5
+
+input_string=$(systemd-analyze)
+IFS="="
+read -ra total_time_taken <<< "$input_string"
+
+# Display the split elements
+for time in "${total_time_taken[1]}"; do
+    notify-send "System Started In   :   $time"
+done

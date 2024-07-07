@@ -1,0 +1,27 @@
+#!/bin/sh
+
+send_note(){
+text=$(pulsemixer --get-volume)
+IFS=' '
+read -ra vole <<< "$text"
+mvv=$(pulsemixer --get-mute)
+
+if [ $mvv -gt 0 ]; then
+  notify-send " Volume Level   :    Muted " -r 997 -h int:value:0} 
+else
+  notify-send " Volume Level   :    ${vole[0]} " -r 997 -h int:value:${vole[0]}
+fi
+}
+
+if [ "$1" = "u" ] ; then
+  pulsemixer --change-volume +5 --max-volume 100
+  send_note
+elif [ "$1" = "d" ] ; then
+  pulsemixer --change-volume -5
+  send_note
+elif [ "$1" = "m" ] ; then
+   pulsemixer --toggle-mute
+   send_note
+else
+  echo "Please Enter a argument [ u / d / m ]"
+fi

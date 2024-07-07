@@ -1,0 +1,65 @@
+#! /bin/sh
+
+dark() {
+
+cp ~/.config/theme-changer/dark/colours ~/.config/polybar/
+cp ~/.config/theme-changer/dark/config.rasi ~/.config/rofi/
+cp ~/.config/theme-changer/dark/dunstrc ~/.config/dunst/
+
+wallpaper=/home/akrit/.config/wallpaper/Dark_6.jpg 
+nohup feh --bg-scale $wallpaper &
+
+replacement_text="feh --bg-scale \/home\/akrit\/.config\/wallpaper\/Dark_5.jpg \&"
+sed -i "/^feh --bg-scale/s/.*/$replacement_text/" /home/akrit/.config/bspwm/bspwmrc
+
+gtk2='gtk-theme-name="Arc-Dark"'
+sed -i "/^gtk-theme-name/s/.*/$gtk2/" /home/akrit/.gtkrc-2.0
+sed -i "/^gtk-theme-name/s/.*/gtk-theme-name=Arc-Dark/" /home/akrit/.config/gtk-3.0/settings.ini
+
+sed -i "/^custom_palette/s/.*/custom_palette=true/" /home/akrit/.config/qt5ct/qt5ct.conf
+csh="color_scheme_path=\/usr\/share\/qt5ct\/colors\/darker.conf"
+sed -i "/^color_scheme_path/s/.*/$csh/" /home/akrit/.config/qt5ct/qt5ct.conf
+
+pkill polybar && pkill dunst
+nohup polybar &
+nohup dunst &
+rm nohup.out
+
+notify-send "Dark Mode....."
+}
+
+light() {
+
+cp ~/.config/theme-changer/light/colours ~/.config/polybar/
+cp ~/.config/theme-changer/light/config.rasi ~/.config/rofi/
+cp ~/.config/theme-changer/light/dunstrc ~/.config/dunst/
+
+wallpaper=/home/akrit/.config/wallpaper/Light_3.jpg
+nohup feh --bg-scale $wallpaper &
+
+replacement_text="feh --bg-scale \/home\/akrit\/.config\/wallpaper\/Light_3.jpg \&"
+sed -i "/^feh --bg-scale/s/.*/$replacement_text/" /home/akrit/.config/bspwm/bspwmrc
+
+
+gtk2='gtk-theme-name="Arc"'
+sed -i "/^gtk-theme-name/s/.*/$gtk2/" /home/akrit/.gtkrc-2.0
+sed -i "/^gtk-theme-name/s/.*/gtk-theme-name=Arc/" /home/akrit/.config/gtk-3.0/settings.ini
+
+sed -i "/^custom_palette/s/.*/custom_palette=false/" /home/akrit/.config/qt5ct/qt5ct.conf
+
+pkill polybar && pkill dunst
+nohup polybar &
+nohup dunst &
+rm nohup.out 
+
+notify-send "Light Mode....."
+}
+
+chosen=$(printf "   Dark Theme\n    Light Theme\n    Set Wallpaper" | rofi -dmenu -i -theme-str '@import "power.rasi"' )
+
+case "$chosen" in
+	"   Dark Theme") dark;;
+  "    Light Theme") light;;
+  "    Set Wallpaper") wallpaper_changer;;
+  *) exit 1 ;;
+esac

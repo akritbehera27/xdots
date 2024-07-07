@@ -1,0 +1,76 @@
+#!/bin/sh
+
+#for geting the uptime of the system
+uptime=$(uptime)
+uptime=( $uptime )
+IFS=','
+for i in ${uptime[2]}
+do
+    uptime=$i
+    if [ ${#i} -gt 2 ]
+    then
+        prefu=" hr"
+    else
+        prefu=" min"
+    fi
+    uptime+=$prefu
+done
+
+#for geting the number of packages installed in pacman
+package=$(pacman -Q | wc -l)
+
+#for geting info about root disk sapce
+space_root=$(df -h / | grep G)
+IFS=' '
+space_root=( $space_root )
+for i in ${space_root[2]}
+do
+    full=$i
+done
+
+for i in ${space_root[1]}
+do
+    outof=$i
+done
+space_root=$(echo $full / $outof)
+
+#for geting info about /home disk sapce
+space_home=$(df -h /home | grep G)
+IFS=' '
+space_home=( $space_home )
+for i in ${space_home[2]}
+do
+    full=$i
+done
+
+for i in ${space_home[1]}
+do
+    outof=$i
+done
+space_home=$(echo $full / $outof)
+
+#for getting the ram usage
+#Active memory
+amem=$(cat /proc/meminfo | grep Active: )
+IFS=' '
+amem=( $amem )
+for i in ${amem[1]}
+do
+    amem=$(expr $i / 1000)
+    amem+=' MiB'
+done 
+
+#total
+tmem=$(cat /proc/meminfo | grep MemTotal: )
+IFS=' '
+tmem=( $tmem )
+for i in ${tmem[1]}
+do
+    tmem=$(expr $i / 1000)
+    tmem+=' MiB'
+done 
+
+#memory 'used/totla' in MiB
+mem=$(echo $amem / $tmem)
+
+notify-send -r 231 "Status" "Uptime      :      $uptime \nPackages    :     $package \nSpace /     :      $space_root\nSpace /home  :    $space_home\nMemory Usage :     $mem"

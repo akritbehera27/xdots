@@ -1,0 +1,16 @@
+
+configuration {
+  font: "JetBrainsMono Nerd Font Medium 14";
+}
+
+window {
+  width: 25%;
+}
+
+mainbox {
+  children: [listview];
+}
+
+listview {
+	lines: 6;
+}

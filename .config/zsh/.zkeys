@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# use vim keys in tab complete menu
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey '^]' history-substring-search-up
+bindkey '^[' history-substring-search-down
+bindkey '^k' kill-line
+bindkey '^[[F' end-of-line
+bindkey '^[[H' beginning-of-line

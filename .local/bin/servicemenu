@@ -1,0 +1,51 @@
+#!/bin/sh
+
+##                                                                              ##
+##### This Program is not supposed to run as a command it is for key-shortcut ####
+##                                                                              ##
+
+bspc node -t floating
+echo -e "\e[1;31m==== AUTHENTICATION REQUIRED ====\e[0m"
+echo "Enter root password to start the service"
+read -sp "Password: " pass
+
+#checking for correct root password
+clear
+echo $pass | sudo -S ls
+if [ $? -eq 0 ];then
+clear
+#for toggle_service give $1 as the name of service $1(first parameter) it will
+#turn on the service if no running and stop if running
+toggle_service() {
+    if pgrep -x "$1" > /dev/null; then
+        echo "Service is running."
+        echo $pass | sudo -S systemctl stop $1
+        notify-send "Service : $1" "Already Running... Stoping"
+    else
+      echo "Service is not running."
+      notify-send "Service : $1" "Starting service... Started"
+      echo $pass | sudo -S systemctl start $1
+    fi
+}
+
+#for service_name_output give $1 as the name of service $1(first parameter) it will
+#give you the name of service based on its status
+service_name_output() {
+    if pgrep -x "$1" > /dev/null; then
+        echo "󱤳   $1 Service"
+    else
+        echo "   $1 Service"
+    fi
+}
+
+chosen=$(printf "$(service_name_output "sshd")\n$(service_name_output "libvirtd")" | rofi -dmenu -i -theme-str '@import "power.rasi"' )
+
+case "$chosen" in
+	$(service_name_output "sshd")) toggle_service sshd;;
+	$(service_name_output "libvirtd"))toggle_service libvirtd ;;
+  *) exit 1 ;;
+esac
+
+else
+   notify-send "Authentication failed"
+fi

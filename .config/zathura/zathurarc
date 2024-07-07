@@ -1,0 +1,10 @@
+set font 'FiraCode Nerd Font Mono Regular 11'
+set selection-clipboard clipboard
+set page-padding 4
+map r recolor
+map p print
+map K zoom in
+map J zoom out
+map r reload
+map R rotate
+map D toggle_page_mode

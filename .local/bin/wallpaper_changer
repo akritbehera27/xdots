@@ -1,0 +1,62 @@
+#!/usr/bin/python
+import os
+import subprocess
+
+""" 
+Note that this is not made it a commnad its mearly a python script
+"""
+
+# Function to display Rofi menu
+def show_rofi_menu(title, options):
+    rofi_options = "\n".join(options)
+    command = f'echo "{rofi_options}" | rofi -dmenu -p "{title}"'
+    selected_option = subprocess.check_output(command, shell=True, encoding='utf-8')
+    return selected_option.strip()
+
+# Function to change wallpaper from a given directory
+def change_wallpaper(wallpaper_dir, wallpaper):
+    wallpaper_path = os.path.join(wallpaper_dir, wallpaper)
+    # Command to change wallpaper (adjust according to your desktop environment)
+    command = f'feh --bg-scale {wallpaper_path}'
+    subprocess.run(command, shell=True)
+
+    # Replace line in bspwmrc
+    replace_line(wallpaper_path)
+
+def replace_line(wallpaper_path):
+    # Read the contents of the file
+    file_path = "/home/akrit/.config/bspwm/bspwmrc"
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    # Modify the desired line
+    if 0 < 22 <= len(lines):
+        lines[22 - 1] = f"feh --bg-scale {wallpaper_path} &" + '\n'  # Adjust for 0-based index
+
+        # Write the modified content back to the file
+        with open(file_path, 'w') as file:
+            file.writelines(lines)
+        commanda = f'notify-send "Wallpaper Changed : "'
+        subprocess.run(commanda, shell=True)
+    else:
+        print("Invalid line number.")
+
+# Main function
+def main():
+    # Directory containing wallpapers
+    wallpaper_dir = "/home/akrit/.config/wallpaper"
+    
+    # List wallpapers in the directory
+    wallpapers = os.listdir(wallpaper_dir)
+    
+    # Display options in Rofi menu
+    selected_option = show_rofi_menu("  : ", wallpapers)
+    
+    # Change wallpaper based on user selection
+    if selected_option in wallpapers:
+        change_wallpaper(wallpaper_dir, selected_option)
+    else:
+        print("Invalid option selected or no option selected.")
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,20 @@
+#!/bin/sh
+ping -c 1 google.com
+if [ $? -eq 0 ]
+then
+  notify-send "Checking For Updates" ""
+  st=$(checkupdates | wc -l)
+  update_string=''
+  update_string_head=''
+  if [ $st -gt 0 ]
+  then
+    update_string_head="Updates : Avaliable"
+    update_string=( $st )" Packages need to be updated"
+  else
+    update_string_head="Device : Up To Date"
+    update_string="Packages are Up to Date. Nothing to do..."
+  fi
+  notify-send "$update_string_head" "$update_string"
+else
+  notify-send "Internet Connection Error :" "Names of the Packages are not avaliable"
+fi

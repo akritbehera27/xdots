@@ -1,0 +1,35 @@
+#!/bin/sh
+
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+# Set the battery limit (percentage)
+battery_low_limit=23
+battery_full_limit=97
+full_file=/tmp/batteryfull
+
+IFS=$'\n'   
+for line in $(acpi); do
+    if grep -q "information unavailable" <<< "$line"; then
+      $ThisIsUseless
+    else
+      battery_info=$line
+    fi
+done
+echo $battery_info
+battery_percentage=$(echo "$battery_info" | awk '{print $4}' | tr -d ',' | tr -d '%')
+battery_discharging=$(echo $battery_info | grep -c "Discharging")
+# Check if battery percentage is below the limit
+
+if [ "$battery_percentage" -lt "$battery_low_limit" ] && [ $battery_discharging -eq 1 ]; then
+    notify-send "Battery Low" "Battery level  :   $battery_percentage%" -u critical -r 183
+
+elif [ "$battery_percentage" -gt "$battery_full_limit" ]; then
+  if [ ! -f "$full_file" ]; then
+    notify-send "Battery Full" "Battery level  :   $battery_percentage%" -r 183
+    touch "$full_file"
+  fi
+else
+  [ -f "$full_file" ] && rm "$full_file"
+fi
+
