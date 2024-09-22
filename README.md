@@ -35,3 +35,7 @@ Hear is the list of software that is use daily if you'd like a more in-depth lis
 
 Most config files for various programs can be found in the `.config` directory. Shell scripts can be found in the `.local/bin` directory. Environment variables can be found in `.zshenv` and my zsh configs in `.zshrc`
 
+## Additional Steps:
+
+You can Automate the process of  " auto login" for tty1 in you arch linux given in [autologin](https://wiki.archlinux.org/title/Getty#Automatic_login_to_virtual_console) , additionally you can also "Hide the grub bootmenu" by following the guid given in [grub tricks](https://wiki.archlinux.org/title/GRUB/Tips_and_tricks#Hide_GRUB_unless_the_Shift_key_is_held_down)
+
