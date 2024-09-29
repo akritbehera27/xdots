@@ -36,7 +36,7 @@ Hear is the list of software that is use daily if you'd like a more in-depth lis
 
 ## Where is everything?
 
-Most config files for various programs can be found in the `.config` directory. Shell scripts can be found in the `.local/bin` directory. Environment variables can be found in `.zshenv` and my zsh configs in `.zshrc`
+Most config files for various programs can be found in the `.config` directory. Shell scripts can be found in the `.local/bin` directory. For Zsh use zsh-configs, environment variables can be found in `.zshenv`and zsh configs in `.zshrc` .For Bash use bash-configs which have `.bashrc` and `bash_profile`
 
 ## Additional Steps:
 
