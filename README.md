@@ -16,11 +16,11 @@ In the future I'm planning on adding an install script to make it easier for oth
 Hear is the list of software that is use daily if you'd like a more in-depth list of all the software and hardware I use on a daily basis you cna refer to their manual pages
 
 - Operating System: [Arch Linux](https://archlinux.org/)
-- Window Manager: [Bspwm](https://github.com/baskerville/bspwm) with xorg
+- Window Manager: [Bspwm](https://github.com/baskerville/bspwm) with `xorg`
 - Status Bar: [Polybar](https://github.com/polybar/polybar)
 - Terminal: [Alacritty](https://github.com/alacritty/alacritty)
 - Launcher: [rofi](https://wiki.archlinux.org/title/rofi)
-- Browser: [Brave](https://aur.archlinux.org/packages/brave-bin)
+- Browser: [Firefox](https://www.mozilla.org/en-US/firefox/new/)
 - File Manager: [lf](https://github.com/gokcehan/lf)
 - Notifications: [dunst](https://github.com/dunst-project/dunst)
 - Image Viewer: [nsxiv](https://github.com/nsxiv/nsxiv)
@@ -29,6 +29,9 @@ Hear is the list of software that is use daily if you'd like a more in-depth lis
 - Lockscreen: [betterlockscreen](https://github.com/betterlockscreen/betterlockscreen/tree/next)
 - daemon: [Systemd](https://wiki.archlinux.org/title/systemd)
 - Fonts: [FiraCode Nerd](https://www.nerdfonts.com/) and [Font Awesome](https://fontawesome.com/) and Terminus ( For tty )
+- Theme: GTk : `Arc-Dark` by lxappearnce & QT5 : `Fusion darker` by qt5ct
+- Sound: [PulseAudio](https://wiki.archlinux.org/title/PulseAudio) with Front-end as [Pulsemixer](https://github.com/GeorgeFilipkin/pulsemixer)
+
 
 
 ## Where is everything?
