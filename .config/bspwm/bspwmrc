@@ -2,7 +2,6 @@
 
 #pgrep -x sxhkd > /dev/null || sxhkd &
 
-
 bspc monitor -d I II III IV V
 
 bspc config border_width         2
@@ -17,10 +16,9 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-xsetroot -cursor_name left_ptr
-feh --bg-scale /home/akrit/.config/wallpaper/Dark_5.jpg &
-feh --bg-scale /home/akrit/.config/wallpaper/Dark_5.jpg &
-/home/akrit/.config/polybar/launch.sh &
+xsetroot -cursor_name left_ptr &
+polybar &
+feh --bg-scale /home/akrit/.config/wallpaper/d2.jpg &
+system_started_in &
 dunst &
 picom -b &
-/home/akrit/.local/bin/system_started_in &

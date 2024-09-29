@@ -2,23 +2,25 @@
 
 dark() {
 
-cp ~/.config/theme-changer/dark/colours ~/.config/polybar/
-cp ~/.config/theme-changer/dark/config.rasi ~/.config/rofi/
-cp ~/.config/theme-changer/dark/dunstrc ~/.config/dunst/
+cp $HOME/.config/theme-changer/dark/colours $HOME/.config/polybar/
+cp $HOME/.config/theme-changer/dark/config.rasi $HOME/.config/rofi/
+cp $HOME/.config/theme-changer/dark/dunstrc $HOME/.config/dunst/
 
-wallpaper=/home/akrit/.config/wallpaper/Dark_6.jpg 
+dwn=d2.jpg 
+
+wallpaper=$HOME/.config/wallpaper/$dwn
 nohup feh --bg-scale $wallpaper &
 
-replacement_text="feh --bg-scale \/home\/akrit\/.config\/wallpaper\/Dark_5.jpg \&"
-sed -i "/^feh --bg-scale/s/.*/$replacement_text/" /home/akrit/.config/bspwm/bspwmrc
+replacement_text="feh --bg-scale \/home\/$USER\/.config\/wallpaper\/$dwn \&"
+sed -i "/^feh --bg-scale/s/.*/$replacement_text/" $HOME/.config/bspwm/bspwmrc
 
 gtk2='gtk-theme-name="Arc-Dark"'
-sed -i "/^gtk-theme-name/s/.*/$gtk2/" /home/akrit/.gtkrc-2.0
-sed -i "/^gtk-theme-name/s/.*/gtk-theme-name=Arc-Dark/" /home/akrit/.config/gtk-3.0/settings.ini
+sed -i "/^gtk-theme-name/s/.*/$gtk2/" $HOME/.gtkrc-2.0
+sed -i "/^gtk-theme-name/s/.*/gtk-theme-name=Arc-Dark/" $HOME/.config/gtk-3.0/settings.ini
 
-sed -i "/^custom_palette/s/.*/custom_palette=true/" /home/akrit/.config/qt5ct/qt5ct.conf
+sed -i "/^custom_palette/s/.*/custom_palette=true/" $HOME/.config/qt5ct/qt5ct.conf
 csh="color_scheme_path=\/usr\/share\/qt5ct\/colors\/darker.conf"
-sed -i "/^color_scheme_path/s/.*/$csh/" /home/akrit/.config/qt5ct/qt5ct.conf
+sed -i "/^color_scheme_path/s/.*/$csh/" $HOME/.config/qt5ct/qt5ct.conf
 
 pkill polybar && pkill dunst
 nohup polybar &
@@ -30,22 +32,23 @@ notify-send "Dark Mode....."
 
 light() {
 
-cp ~/.config/theme-changer/light/colours ~/.config/polybar/
-cp ~/.config/theme-changer/light/config.rasi ~/.config/rofi/
-cp ~/.config/theme-changer/light/dunstrc ~/.config/dunst/
+cp $HOME/.config/theme-changer/light/colours $HOME/.config/polybar/
+cp $HOME/.config/theme-changer/light/config.rasi $HOME/.config/rofi/
+cp $HOME/.config/theme-changer/light/dunstrc $HOME/.config/dunst/
 
-wallpaper=/home/akrit/.config/wallpaper/Light_3.jpg
+lwn=Light_3.jpg
+wallpaper=$HOME/.config/wallpaper/$lwn
 nohup feh --bg-scale $wallpaper &
 
-replacement_text="feh --bg-scale \/home\/akrit\/.config\/wallpaper\/Light_3.jpg \&"
-sed -i "/^feh --bg-scale/s/.*/$replacement_text/" /home/akrit/.config/bspwm/bspwmrc
+replacement_text="feh --bg-scale \/home\/$USER\/.config\/wallpaper\/$lwn \&"
+sed -i "/^feh --bg-scale/s/.*/$replacement_text/" $HOME/.config/bspwm/bspwmrc
 
 
 gtk2='gtk-theme-name="Arc"'
-sed -i "/^gtk-theme-name/s/.*/$gtk2/" /home/akrit/.gtkrc-2.0
-sed -i "/^gtk-theme-name/s/.*/gtk-theme-name=Arc/" /home/akrit/.config/gtk-3.0/settings.ini
+sed -i "/^gtk-theme-name/s/.*/$gtk2/" $HOME/.gtkrc-2.0
+sed -i "/^gtk-theme-name/s/.*/gtk-theme-name=Arc/" $HOME/.config/gtk-3.0/settings.ini
 
-sed -i "/^custom_palette/s/.*/custom_palette=false/" /home/akrit/.config/qt5ct/qt5ct.conf
+sed -i "/^custom_palette/s/.*/custom_palette=false/" $HOME/.config/qt5ct/qt5ct.conf
 
 pkill polybar && pkill dunst
 nohup polybar &

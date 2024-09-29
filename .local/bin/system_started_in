@@ -1,4 +1,5 @@
 #!/bin/sh
+
 sleep 5
 
 input_string=$(systemd-analyze)

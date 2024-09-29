@@ -11,18 +11,32 @@ read -sp "Password: " pass
 
 #checking the root password
 clear
-echo $pass | sudo -S ls
+echo $pass | sudo -S echo ""
 if [ $? -eq 0 ];then
-clear
+  clear
+else
+  notify-send "Authentication failed"
+  exit 1
+fi
 
-drvf=/drive1
+if [ -d "/drive1" ]; then
+  drvf=/drive1
+else
+  echo $pass | sudo -S mkdir /drive1
+  drvf=/drive1
 
+fi
+
+
+partionname=sda4
 mnt_f() {
-mount | grep /dev/sda4
+mount | grep /dev/$partionname
 if [ $? -eq 0 ]; then
   notify-send "Drive Already Mounted"
+  notify-send "Umounting the Drive /dev/$partionname"
+  echo $pass | sudo -S umount /drive1
 else
-echo $pass | sudo -S mount /dev/sda4 $drvf
+echo $pass | sudo -S mount /dev/$partionname $drvf
 notify-send "/dev/sda4 mounted"
 fi
 clear
@@ -33,15 +47,13 @@ mnt_f
 echo $pass | sudo -S systemctl start libvirtd
 echo $pass | sudo -S virsh net-start default
 notify-send "Started Default Network"
+
+virt-manager
 }
 
-chosen=$(printf "󱛟   Mount /dev/sda4\n󰛳   Net-start Default & Qemu" | rofi -dmenu -i -theme-str '@import "power.rasi"' )
+chosen=$(printf "󱛟   Mount /dev/$partionname\n󰛳   Net-start Default & Qemu" | rofi -dmenu -i -theme-str '@import "power.rasi"' )
 case "$chosen" in
-  "󱛟   Mount /dev/sda4") mnt_f;;
+  "󱛟   Mount /dev/$partionname") mnt_f;;
   "󰛳   Net-start Default & Qemu") nsd_f;;
 	*) exit 1 ;;
 esac
-
-else
-   notify-send "Authentication failed"
-fi

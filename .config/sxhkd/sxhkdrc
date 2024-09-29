@@ -17,7 +17,7 @@ super + ctrl + n
   alacritty -e nvim -c VimwikiIndex
 
 super + b
-       notify-send "Launching Brave Browser" & brave & 
+       notify-send "Launching Browser" & firefox & 
 
 super + f
   alacritty -e lf & xrdb ~/.Xresources &
