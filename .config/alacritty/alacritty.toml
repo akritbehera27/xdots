@@ -1,4 +1,4 @@
-import = ["/home/akrit/.config/alacritty/themes/one_dark.toml"]
+import = ["/home/user/.config/alacritty/themes/one_dark.toml"]
 
 [font]
 size = 13.5

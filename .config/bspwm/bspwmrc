@@ -18,7 +18,7 @@ bspc rule -a Screenkey manage=off
 
 xsetroot -cursor_name left_ptr &
 polybar &
-feh --bg-scale /home/akrit/.config/wallpaper/d2.jpg &
+feh --bg-scale /home/$USER/.config/wallpaper/d2.jpg &
 system_started_in &
 dunst &
 picom -b &

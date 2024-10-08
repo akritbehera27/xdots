@@ -5,16 +5,20 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-#alias paru='paru -Sua'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias img='nsxiv'
 xrdb ~/.Xresources 
-#PS1='[\u@\h \W]\$ '
-# default apps
 PS1=' \W > '
 
 export EDITOR="nvim"
+export VISUAL="nvim"
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_SCREENSHOTS_DIR="$HOME/pictures/screenshots"
+
+export PATH="$HOME/.local/bin:$PATH"
 
 #icons for lf
 export LF_ICONS="\
