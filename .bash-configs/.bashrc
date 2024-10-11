@@ -8,11 +8,10 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias img='nsxiv'
-xrdb ~/.Xresources 
 PS1=' \W > '
 
-export EDITOR="nvim"
-export VISUAL="nvim"
+export EDITOR="vim"
+export VISUAL="vim"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
