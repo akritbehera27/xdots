@@ -31,12 +31,14 @@ if [ -d ./dotfiles ]; then
 else
 	git clone https://github.com/akritbehera27/dotfiles
 fi
-
 clear
+
+# COPYING CONFIG FILES TO HOME 
 cd dotfiles
 sed -i s/user/$USER/g .config/alacritty/alacritty.toml
 echo "Coppying files into ~ "
+
 cp -r .config ~
-cp .bash-configs/.bashrc ~
 cp -r .local ~
+cp .bash-configs/.bashrc ~
 
