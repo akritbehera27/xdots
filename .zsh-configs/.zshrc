@@ -8,7 +8,7 @@ fi
 #History
 HISTSIZE=5000
 SAVEHIST=5000
-export HISTFILE=$HOME"/.config/zsh/history"
+export HISTFILE=$HOME"/.cache/zhistory"
 setopt hist_ignore_dups     # do not record an event that was just recorded again
 setopt hist_ignore_all_dups # delete an old recorded event if a new event is a duplicate
 setopt hist_ignore_space    # do not record an event starting with a space
@@ -32,7 +32,7 @@ compinit -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
 #imporing key shoutcouts
 source ~/.config/zsh/.zkeys
 
-zstyle :compinstall filename '/home/akrit/.zshrc'
+zstyle :compinstall filename "/home/$USER/.zshrc"
 
 #Source
 source ~/.config/zsh/powerlevel10k/powerlevel10k.zsh-theme
