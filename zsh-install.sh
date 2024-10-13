@@ -62,7 +62,7 @@ echo ""
 echo "These Files are going to be deleted : $(ls -a ~ | grep .bash) "
 
 
-echo "Want to set DELETE"
+echo "Want to DELETE"
 read -p " [ y/n ]  :  " ans
 
 case $ans in
