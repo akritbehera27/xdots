@@ -3,7 +3,7 @@
 #INSTALLING PACKAGES   
 
 video_drivers="xf86-video-intel xf86-input-evdev"
-common_packages="less openssh git"
+common_packages="less openssh git trash-cli"
 xorg="xorg-server xorg-apps xorg-xinit"
 window_manager="bspwm picom polybar rofi dunst alacritty lf lxappearance qt5ct feh sxhkd dunst"
 themes="papirus-icon-theme adwaita-cursors"
