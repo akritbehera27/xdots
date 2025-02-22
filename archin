@@ -73,7 +73,8 @@ time_date() {
     
   else
     while true; do
-    timedatectl lsit-timezones
+    timedatectl list-timezones
+    clear
     read -p "Enter the your TimeZone : " tmz
     timedatectl set-timezone $tmz
     if [ $? -eq 0 ]; then
