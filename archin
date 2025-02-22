@@ -1,0 +1,49 @@
+#!/bin/bash
+
+ask_yes_no() {
+    while true; do
+        read -p "Proceed ? (Y/N) " yn
+        case $yn in
+            [Yy]* ) return 0;;  # Return 0 for "yes"
+            [Nn]* ) return 1;;  # Return 1 for "no"
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+}
+
+r_command() {
+command=$1
+arg=$2
+eval $command $arg
+# Check if the command was successful
+if [ $? -eq 0 ]; then
+  return 0
+else
+  return 1
+fi
+}
+
+console_keyboard_font() {
+  echo "Setting Console Keyboard Layout to EN...."
+  if ask_yes_no; then
+    loadkeys en
+    
+  else
+    cmd="loadkeys"
+    while true; do
+      localectl list-keymaps
+      clear
+      read -p "Enter the your keyboard-layout : " layout
+      if r_command $cmd $layout; then
+          break
+      else
+        echo "Enter a valid input"
+        sleep 2
+      
+      fi
+    done
+  fi
+  echo "Layout Loded...."
+}
+
+console_keyboard_font
