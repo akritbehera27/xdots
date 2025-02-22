@@ -12,9 +12,7 @@ ask_yes_no() {
 }
 
 r_command() {
-command=$1
-arg=$2
-eval $command $arg
+eval $1
 # Check if the command was successful
 if [ $? -eq 0 ]; then
   return 0
@@ -29,12 +27,12 @@ console_keyboard_font() {
     loadkeys en
     
   else
-    cmd="loadkeys"
     while true; do
       localectl list-keymaps
       clear
       read -p "Enter the your keyboard-layout : " layout
-      if r_command $cmd $layout; then
+      cmd_c="loadkeys ${layout}"
+      if r_command $cmd_c; then
           break
       else
         echo "Enter a valid input"
@@ -49,11 +47,11 @@ console_keyboard_font() {
 
 
 check_uefi() {
-  inf=cat "/sys/firmware/efi/fw_platform_size" > /dev/null
-  if [ $inf==64 ]; then
-    echo "System is booted with UEFI....."
+  if [ -d /sys/firmware/efi ]; then
+    echo "System is booted in UEFI mode."
   else
-    echo "Suystem is booted with LEGACY......" 
+    echo "System is booted in Legacy BIOS mode."
+  fi
   echo "Kindly remember you'r boot, it might be a key for further steps."
   echo "If you are not satisfid then, Kindly Chnage You BOOT."
   sleep 2
@@ -61,7 +59,7 @@ check_uefi() {
 }
 
 check_internet() {
-  ping -c 1 8.8.8.8 >> /dev/null
+  ping -c 1 8.8.8.8 > /dev/null 2>&1
   if [ $? -eq 0 ]; then
     echo "Internet working...."
     sleep 2
@@ -81,12 +79,12 @@ time_date() {
     timedatectl set-timezone Asia/Calcutta
     
   else
-  cmdt="timedatectl set-timezone"
     while true; do
-        timedatectl lsit-timezones
+    timedatectl lsit-timezones
         clear
         read -p "Enter the your TimeZone : " tmz
-        if r_command $cmdt $tmz; then
+        cmd_t="timedatectl set-timezone ${tmz}"
+        if r_command $cmd_t; then
             break
         else
           echo "Enter a valid input"
@@ -99,5 +97,8 @@ time_date() {
 
 check_uefi
 console_keyboard_font
+
+clear
+
 time_date
 check_internet
