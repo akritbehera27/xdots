@@ -55,7 +55,7 @@ check_uefi() {
   echo "Kindly remember you'r boot, it might be a key for further steps."
   echo "If you are not satisfid then, Kindly Chnage You BOOT."
   sleep 2
-  fi
+
 }
 
 check_internet() {
