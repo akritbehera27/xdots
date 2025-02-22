@@ -44,6 +44,60 @@ console_keyboard_font() {
     done
   fi
   echo "Layout Loded...."
+  sleep 2
 }
 
+
+check_uefi() {
+  inf=cat "/sys/firmware/efi/fw_platform_size" > /dev/null
+  if [ $inf==64 ]; then
+    echo "System is booted with UEFI....."
+  else
+    echo "Suystem is booted with LEGACY......" 
+  echo "Kindly remember you'r boot, it might be a key for further steps."
+  echo "If you are not satisfid then, Kindly Chnage You BOOT."
+  sleep 2
+  fi
+}
+
+check_internet() {
+  ping -c 1 8.8.8.8 >> /dev/null
+  if [ $? -eq 0 ]; then
+    echo "Internet working...."
+    sleep 2
+  else
+    echo "Internet Not Working..."
+    echo "Please Connect to a Network , this script need internt connecitom | "
+    sleep 2
+    exit
+  fi
+}
+
+time_date() {
+  timedatectl set-ntp true
+  
+  echo "Setting Time Zone to Asia/Calcutta...."
+  if ask_yes_no; then
+    timedatectl set-timezone Asia/Calcutta
+    
+  else
+  cmdt="timedatectl set-timezone"
+    while true; do
+        timedatectl lsit-timezones
+        clear
+        read -p "Enter the your TimeZone : " tmz
+        if r_command $cmdt $tmz; then
+            break
+        else
+          echo "Enter a valid input"
+          sleep 2
+        
+        fi
+    done
+  fi
+}
+
+check_uefi
 console_keyboard_font
+time_date
+check_internet
