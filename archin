@@ -11,16 +11,6 @@ ask_yes_no() {
     done
 }
 
-r_command() {
-eval $1
-# Check if the command was successful
-if [ $? -eq 0 ]; then
-  return 0
-else
-  return 1
-fi
-}
-
 console_keyboard_font() {
   echo "Setting Console Keyboard Layout to EN...."
   if ask_yes_no; then
@@ -31,8 +21,8 @@ console_keyboard_font() {
       localectl list-keymaps
       clear
       read -p "Enter the your keyboard-layout : " layout
-      cmd_c="loadkeys ${layout}"
-      if r_command $cmd_c; then
+      loadkeys $layout
+      if [ $? -eq 0 ]; then
           break
       else
         echo "Enter a valid input"
@@ -43,6 +33,7 @@ console_keyboard_font() {
   fi
   echo "Layout Loded...."
   sleep 2
+  clear
 }
 
 
@@ -55,6 +46,7 @@ check_uefi() {
   echo "Kindly remember you'r boot, it might be a key for further steps."
   echo "If you are not satisfid then, Kindly Chnage You BOOT."
   sleep 2
+  clear
 
 }
 
@@ -69,6 +61,7 @@ check_internet() {
     sleep 2
     exit
   fi
+  clear
 }
 
 time_date() {
@@ -81,16 +74,14 @@ time_date() {
   else
     while true; do
     timedatectl lsit-timezones
-        clear
-        read -p "Enter the your TimeZone : " tmz
-        cmd_t="timedatectl set-timezone ${tmz}"
-        if r_command $cmd_t; then
-            break
-        else
-          echo "Enter a valid input"
-          sleep 2
-        
-        fi
+    read -p "Enter the your TimeZone : " tmz
+    timedatectl set-timezone $tmz
+    if [ $? -eq 0 ]; then
+        break
+    else
+        echo "Enter a valid input"
+        sleep 2
+    fi
     done
   fi
 }
